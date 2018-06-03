@@ -1,34 +1,25 @@
 import React, { Component } from "react";
-import { View } from "react-native";
-import { AccessToken, LoginButton } from "react-native-fbsdk";
-import { LoginView, Header } from "./components";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import firebase from "firebase";
+import reduxThunk from "redux-thunk";
+import reducers from "./reducers";
+import { config } from "../config/keys";
+import Router from "./Router"
 
-export default class App extends Component {
-  state = { fbauth: false };
-
-  async componentDidMount() {
-    const user = await AccessToken.getCurrentAccessToken();
-    if (user) this.setState({ fbauth: true });
+class App extends Component {
+  componentDidMount() {
+    firebase.initializeApp(config);
   }
 
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
     return (
-      <View style={styles.container}>
-        <Header heading="TODO LIST"/>
-        <LoginView
-          fbLogoutFinished={() => this.setState({ fbauth: false })}
-          fbLogin={() => this.setState({ fbauth: true })}
-        />
-      </View>
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
 
-const styles = {
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#57a1c1"
-  }
-}
+export default App;

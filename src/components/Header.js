@@ -1,15 +1,25 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export const Header = ({ heading }) => {
-  return <Text style={styles.headingStyle}>{heading}</Text>;
+const Header = ({ heading }) => {
+  return (
+    <View style={styles.headerStyle}>
+      <Text style={styles.textStyle}>{heading}</Text>
+    </View>
+  );
 };
 
 const styles = {
-  headingStyle: {
-    fontSize: 40,
-    fontFamily: "Courier-Bold",
-    textAlign: "center",
-    color: "#fff"
-  }
-};
+    headerStyle:{
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 15,
+        paddingTop: 20,
+    },
+    textStyle:{
+        fontSize: 50,
+        fontFamily: "Futura-Medium"
+    }
+}
+
+export default Header;

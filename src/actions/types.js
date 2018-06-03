@@ -1,0 +1,3 @@
+export const FB_AUTH_SUCCESS = "FB_AUTH_SUCCESS";
+export const EMAIL_AUTH_SUCCESS = "EMAIL_AUTH_SUCCESS";
+export const AUTH_FAILED = "AUTH_FAILED"

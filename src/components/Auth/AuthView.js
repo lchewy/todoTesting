@@ -2,26 +2,23 @@ import React from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import { LoginButton, AccessToken } from "react-native-fbsdk";
 import { Actions } from "react-native-router-flux";
-import Header from "../Header";
+import { Header, Button } from "../common";
 
 const AuthView = () => {
   return (
     <View>
       <Header heading="TODO APP" />
 
-      <TouchableOpacity
-        onPress={() => Actions.loginView()}
-        style={[styles.btnStyle, { marginTop: 150 }]}
-      >
-        <Text style={styles.btnTextStyle}>Log In</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
+      <Button onPress={() => Actions.loginView()} style={{ marginTop: 150 }}>
+        Log in
+      </Button>
+      <Button
         onPress={() => Actions.signinView()}
-        style={[styles.btnStyle, { backgroundColor: "#f44336" }]}
+        style={{ backgroundColor: "#f44336" }}
       >
-        <Text style={styles.btnTextStyle}>Sign Up</Text>
-      </TouchableOpacity>
+        Sign Up
+      </Button>
+
       <View style={styles.fbBtnStyle}>
         <LoginButton
           readPermissions={["public_profile"]}
@@ -44,20 +41,6 @@ const AuthView = () => {
 };
 
 const styles = {
-  btnStyle: {
-    backgroundColor: "#008CBA",
-    paddingTop: 15,
-    paddingBottom: 15,
-    borderRadius: 10,
-    marginLeft: 100,
-    marginRight: 100,
-    marginBottom: 15
-  },
-  btnTextStyle: {
-    alignSelf: "center",
-    fontSize: 15,
-    color: "#fff"
-  },
   fbBtnStyle: {
     justifyContent: "center",
     alignItems: "center"

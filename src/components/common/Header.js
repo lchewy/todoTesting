@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const Header = ({ heading }) => {
+export const Header = ({ heading }) => {
   return (
     <View style={styles.headerStyle}>
       <Text style={styles.textStyle}>{heading}</Text>
@@ -22,4 +22,3 @@ const styles = {
     }
 }
 
-export default Header;

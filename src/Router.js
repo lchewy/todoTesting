@@ -12,13 +12,12 @@ const RouterComponent = () => {
           key="authView"
           component={AuthView}
           title="Login/Signup"
-          // initial
+          initial
         />
         <Scene
           key="loginView"
           component={LoginView}
           title="Login w/ Email"
-          initial
         />
         <Scene
           key="signinView"

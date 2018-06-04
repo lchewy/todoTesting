@@ -4,7 +4,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  ListView,
+  ListView
 } from "react-native";
 import { LoginButton } from "react-native-fbsdk";
 import { Actions } from "react-native-router-flux";
@@ -20,6 +20,7 @@ class Main extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
+    this.deleteRow = this.deleteRow.bind(this);
     this.state = { dataSource: ds.cloneWithRows(list) };
   }
 
@@ -47,29 +48,33 @@ class Main extends Component {
     );
   }
 
+  deleteRow(key) {
+    this.props.deleteTask(key);
+  }
+
   renderRow(list) {
     return (
       <View style={styles.taskContainerStyles}>
-        <View>
-          <Text>{list.value}</Text>
+        <View style={styles.taskTextContainer}>
+          <Text style={styles.taskText}>{list.value}</Text>
         </View>
-        <TouchableOpacity>
-          <Text>-</Text>
+        <TouchableOpacity style={styles.taskBtn} onPress={() => this.deleteRow(list.uid)}>
+          <Text style={styles.taskBtnText}>-</Text>
         </TouchableOpacity>
       </View>
     );
   }
 
   addTask() {
-    const { newTask, addNewTask } = this.props;
+    const { newTask, addNewTask, fetchTasks } = this.props;
     if (newTask !== "") {
-    addNewTask(newTask);
+      addNewTask(newTask);
+      return;
     }
     alert("add a task");
   }
 
   render() {
-    console.log(this.props)
     return (
       <View style={{ justifyContent: "space-between", flex: 1 }}>
         <View style={styles.headerContainerStyles}>
@@ -84,7 +89,7 @@ class Main extends Component {
         <ListView
           enableEmptySections
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
+          renderRow={this.renderRow.bind(this)}
         />
 
         <View style={styles.footer}>
@@ -118,20 +123,53 @@ const styles = {
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    elevation: 2
+    elevation: 2,
+    marginBottom: 5
   },
   headerStyles: {
     paddingTop: 0,
-    marginTop: 0
+    marginTop: 0,
   },
   textStyles: {
     fontSize: 25,
     color: "#fff"
   },
   taskContainerStyles: {
-    flex: 1
-    // marginBottom: 100
-    // flexDirection:"row"
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: 10,
+    marginRight: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    elevation: 2,
+    marginBottom: 5,
+    paddingTop: 10,
+    paddingBottom:10,
+    paddingRight: 3,
+    borderWidth: 1,
+    borderColor: "#D3D3D3"
+  },
+  taskTextContainer:{
+    flex:3,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  taskText:{
+    fontSize: 25,
+  },
+  taskBtn:{
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "tomato",
+  },
+  taskBtnText:{
+    fontSize: 30,
+    color: "#fff",
+    alignSelf:"center"
   },
   textInputStyles: {
     alignSelf: "stretch",
@@ -144,12 +182,7 @@ const styles = {
     flex: 3
   },
   footer: {
-    // position: "absolute",
     flexDirection: "row"
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
-    // zIndex: 10
   },
   addBtnStyles: {
     flex: 1,
@@ -169,10 +202,3 @@ const mstp = ({ todo: { tasks, newTask } }) => {
   };
 };
 export default connect(mstp, actions)(Main);
-
-// <ScrollView style={styles.taskContainerStyles}>
-//         {tasks}
-//         </ScrollView>
-// const tasks = _.map(this.props.list, ({ value }) => {
-//   return <Tasks value={value} />;
-// });

@@ -5,7 +5,8 @@ import {
   EMAIL_CHANGE,
   PASSWORD_CHANGE,
   LOGIN_ATTEMPT,
-  FETCH_USER
+  FETCH_USER,
+  SIGN_OUT
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -16,7 +17,7 @@ const INITIAL_STATE = {
   email: "",
   password: "",
   error: "",
-  loading: false,
+  loading: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -45,6 +46,8 @@ export default (state = INITIAL_STATE, action) => {
       };
     case LOGIN_ATTEMPT:
       return { ...state, loading: true, error: "" };
+    case SIGN_OUT:
+      return INITIAL_STATE;
     default:
       return state;
   }

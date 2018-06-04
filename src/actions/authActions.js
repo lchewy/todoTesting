@@ -8,7 +8,8 @@ import {
   EMAIL_CHANGE,
   PASSWORD_CHANGE,
   LOGIN_ATTEMPT,
-  FETCH_USER
+  FETCH_USER,
+  SIGN_OUT
 } from "./types";
 
 export const fetchFbUser = token => async dispatch => {
@@ -66,4 +67,10 @@ export const onEmailChange = value => {
 
 export const onPasswordChange = value => {
   return { type: PASSWORD_CHANGE, payload: value };
+};
+
+export const signOut = () => dispatch => {
+  dispatch({ type: SIGN_OUT });
+  alert("logout");
+  Actions.auth();
 };

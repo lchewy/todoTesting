@@ -48,7 +48,6 @@ class LoginView extends Component {
     );
   }
 }
-// <Button onPress={() => logInUser({ email, password })}>Log in</Button>
 
 const mstp = ({ auth: { email, password, error, loading } }) => ({
   email,

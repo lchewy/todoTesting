@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Text, View } from "react-native";
+import {  Text, View } from "react-native";
 import { LoginButton, AccessToken } from "react-native-fbsdk";
 import { Actions } from "react-native-router-flux";
 import { connect } from "react-redux";

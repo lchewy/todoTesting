@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export const Header = ({ heading }) => {
+export const Header = (props) => {
   return (
-    <View style={styles.headerStyle}>
-      <Text style={styles.textStyle}>{heading}</Text>
+    <View style={[styles.headerStyle, props.headerStyle]}>
+      <Text style={[styles.textStyle, props.textStyle]}>{props.heading}</Text>
     </View>
   );
 };

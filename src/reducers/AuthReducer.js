@@ -4,18 +4,19 @@ import {
   AUTH_FAILED,
   EMAIL_CHANGE,
   PASSWORD_CHANGE,
-  LOGIN_ATTEMPT
+  LOGIN_ATTEMPT,
+  FETCH_USER
 } from "../actions/types";
 
 const INITIAL_STATE = {
-  fbAuth: null,
-  emailAuth: null,
+  fbAuth: false,
+  emailAuth: false,
   fbUser: null,
   user: null,
   email: "",
   password: "",
   error: "",
-  loading: false
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -31,14 +32,16 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ...INITIAL_STATE,
         user: action.payload,
-        emailAuth: true
+        emailAuth: true,
+        fbAuth: false
       };
     case FB_AUTH_SUCCESS:
       return {
         ...state,
         ...INITIAL_STATE,
         fbUser: action.payload,
-        fbAuth: true
+        fbAuth: true,
+        emailAuth: false
       };
     case LOGIN_ATTEMPT:
       return { ...state, loading: true, error: "" };
